@@ -18,28 +18,76 @@
     }
 
     // Regular
+    console.log('hello')
 
     // Interpolated
+    // %s : the same as ${}
+    console.log('Hello I am a %s string!','💩')
 
     // Styled
+    // %c : add CSS
+    console.log('%c I am some great text', 'font-size:50px; background:red; text-shadow: 10px 10px 0 blue')
+    // text-shadow: top right blur(px) color;
 
     // warning!
+    // show warning message
+    console.warn('OH NOOO')
 
     // Error :|
+    // show error message
+    console.error('shit!')
 
     // Info
+    // show info message
+    console.info('Crocodiles eat 3-4 people per year')
 
     // Testing
+    // if False => return message
+    const p = document.querySelector('p')
+    console.assert(p.classList.contains('ouch'),'That is wrong!' )
 
     // clearing
+    // clears all the above console
+    // console.clear()
 
     // Viewing DOM Elements
+    // show p elements itself
+    console.log(p)
+    // show children elements of p
+    console.dir(p)
 
     // Grouping together
+    // console.groupCollapsed(or grounp)(`something`)
+    // *groupCllapsed makes toggled group
+    // console.groupEnd(`something`)
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`)
+      console.log(`This is ${dog.name}`)
+      console.log(`${dog.name} is ${dog.age} years old`)
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`)
+      console.groupEnd(`${dog.name}`)
+    })
 
     // counting
+    // count how many times something is consoled
+    console.count('Wes') // 1
+    console.count('Wes') // 2
+    console.count('Steve') //1
+    console.count('Steve') //2
+    console.count('Wes') //3
 
     // timing
+    // console.time('something')
+    // console.timeEnd('something')
+    // starts and ends timer and show how long it took(by seconds)
+    // like "fetching data: 590.197021484375ms"
+    console.time('fetching data')
+    fetch('https://api.github.com/users/wesbos')
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data')
+        console.log(data)
+      })
 
   </script>
 </body>
