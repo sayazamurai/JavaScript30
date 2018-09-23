@@ -8,32 +8,83 @@
 
   <script>
     // start with strings, numbers and booleans
+    let age = 100
+    // age2 is a copy of age, not a reference
+    let age2= age
+    // 100 100
+    console.log(age, age2)
+    // age2 is untouched
+    age=200
+    // 200 100
+    console.log(age,age2)
+
+    let name = 'Wes'
+    let name2 = name
+    // Wes Wes
+    console.log(name, name2)
+    name = 'wesley'
+    // wesley Wes
+    console.log(name, name2)
+
 
     // Let's say we have an array
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
 
+    //  team is a reference of players!!
+    const team = players
+    // (4) ["Wes", "Sarah", "Ryan", "Poppy"] (4) ["Wes", "Sarah", "Ryan", "Poppy"]
+    console.log(team, players)
+
     // You might think we can just do something like this:
+    // players[3] is also changed!!
+    team[3] = 'Lux'
+    // (4) ["Wes", "Sarah", "Ryan", "Lux"] (4) ["Wes", "Sarah", "Ryan", "Lux"]
+    console.log(team, players)
 
     // however what happens when we update that array?
-
     // now here is the problem!
-
     // oh no - we have edited the original array too!
-
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
     // So, how do we fix this? We take a copy instead!
+    // team2 is a copy of players
+    const team2 = players.slice()
+    // (4) ["Wes", "Sarah", "Ryan", "Lux"]
+    console.log(team2)
+    // ["Ryan"]
+    console.log(players.slice(2, 3))
+    // ["Wes", "Sarah", "Ryan", "Lux"]
+    console.log(players)
+
+    players[3] = 'Poppy'
+
+    //  ["Wes", "Sarah", "Ryan", "Lux"]
+    // team2 is untouched
+    console.log(team2)
+    //  ["Wes", "Sarah", "Ryan", "Poppy"]
+    console.log(players)
 
     // one way
-
     // or create a new array and concat the old one in
+    const team3 = [].concat(players)
+    // ["Wes", "Sarah", "Ryan", "Poppy"]
+    console.log(team3)
 
     // or use the new ES6 Spread
+    const team4 = [...players]
+    // ["Wes", "Sarah", "Ryan", "Poppy"]
+    console.log(team4)
+    team4[3] = 'heee hawww'
+    // (4) ["Wes", "Sarah", "Ryan", "heee hawww"] (4) ["Wes", "Sarah", "Ryan", "Poppy"]
+    console.log(team4, players)
+
+    const team5 = Array.from(players)
+    // ["Wes", "Sarah", "Ryan", "Poppy"]
+    console.log(team5)
 
     // now when we update it, the original one isn't changed
-
     // The same thing goes for objects, let's say we have a person object
 
     // with Objects
@@ -43,12 +94,55 @@
     };
 
     // and think we make a copy:
+    // captain is a reference of person, not a copy
+    const captain = person
+    captain.number = 99
+    // {name: "Wes Bos", age: 80, number: 99}
+    console.log(person)
 
     // how do we take a copy instead?
+    const cap2 = Object.assign({}, person, {number:99, age:12})
+    // {name: "Wes Bos", age: 80, number: 99}
+    console.log(person)
+    // {name: "Wes Bos", age: 12, number: 99}
+    console.log(cap2)
 
     // We will hopefully soon see the object ...spread
+    const cap3 = {...person}
+    // {name: "Wes Bos", age: 80, number: 99}
+    console.log(cap3)
 
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const wes = {
+      name: 'wes',
+      age: 100,
+      social: {
+        twitter: '@wesbos',
+        facebook:'wesbos.developer'
+      }
+    }
+    console.log(wes)
+
+    // dev copies only 1 level of wes
+    // (2 level(social) isn't copied, just a reference)
+    const dev = Object.assign({},wes)
+    console.log(dev)
+
+    dev.social.twitter = '@coolman'
+    // {twitter: "@coolman", facebook: "wesbos.developer"}
+    console.log(wes.social)
+
+    // dev2 is a pwerfect copy of wes
+    const dev2 = JSON.parse(JSON.stringify(wes))
+
+    dev2.social.twitter = '@sayajewels'
+    // {twitter: "@coolman", facebook: "wesbos.developer"}
+    console.log(wes.social)
+    // {twitter: "@sayajewels", facebook: "wesbos.developer"}
+    console.log(dev2.social)
+
+
+
 
   </script>
 
