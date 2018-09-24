@@ -182,6 +182,44 @@
     </li>
   </ul>
 <script>
+  // without Array.from()
+  // time Nodes is not an array, but a Node object
+  // => cannot use map function
+  // with Array.from() or [...]
+  // timeNodes is converted into an Array
+  const timeNodes = Array.from(document.querySelectorAll('[data-time]'))
+  console.log(timeNodes)
+
+  const seconds =  timeNodes
+    .map(node => node.dataset.time)
+    .map(timeCode => {
+      // parseFloat converts strings into integers
+      const[mins, secs] = timeCode.split(':').map(parseFloat)
+      // console.log(mins, secs)
+      // return seconds
+      return (mins * 60) + secs
+    })
+    // add up all seconds
+    .reduce((total, vidSeconds) => total + vidSeconds)
+
+  // 17938
+  console.log(seconds)
+
+  let secondsleft = seconds
+  // round down
+  // 17938 / 3600 = 4, R3538
+  const hours = Math.floor(secondsleft / 3600)
+  // remainder
+  secondsleft = secondsleft % 3600
+
+  // 982 / 60 = 58, R58
+  const mins = Math.floor(secondsleft / 60)
+  secondsleft = secondsleft % 60
+
+  // 4 58 58
+  console.log(hours, mins, secondsleft)
+
+
 </script>
 </body>
 </html>
