@@ -50,7 +50,8 @@ function strip(bandName) {
   return bandName.replace(/^(a |the |an )/i, '').trim()
 }
 // /〇〇/: regular expression
-// caret(^) means
+// caret(^) means start of the string
+// (searches element that starts with 'a ', 'the ' or 'an ')
 // i: insensitive(capitals also match)
 
 const sortedBands = bands.sort((a, b)=> strip(a) > strip(b) ? 1: -1)
