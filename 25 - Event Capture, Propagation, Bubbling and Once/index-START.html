@@ -37,8 +37,51 @@
   }
 </style>
 
-<button></button>
+<button>button</button>
+
 <script>
+  const divs = document.querySelectorAll('div')
+  const button = document.querySelector('button')
+
+  function logText(e) {
+    console.log(this.classList.value)
+    // stop bubbling the event up
+    // doesn't trigger events on the parents
+    e.stopPropagation()
+  }
+
+  // without e.stopPropagation()
+  // click "one" area (which is thistle)
+  // console.log outputs "one bod"
+  document.body.addEventListener('click', logText)
+
+  // without {capture: true} (default)
+  // bubbling occurs:
+  // browser figures out what is clicked,
+  // but also triggers clicks up to parents
+  // when click "three" area (which is coral)
+  // console.log outputs "three two one"
+
+  // with {capture: true}
+  // function doesn't run on the bubble up, run on the capture down
+  // when click "three" area (which is coral)
+  // console.log outputs "one two three"
+
+  // with e.stopPropagation() and {capture: true}
+  // console.log outputs "one" whereever you click
+  divs.forEach(div => div.addEventListener('click',logText,{
+    // capture: false is default
+    capture: false,
+    // once: true
+  }))
+
+  button.addEventListener('click', () => {
+    console.log('click!!!')
+  },{
+    // listen for a click ONLY once, and unbind itself(= removeEventListener)
+    // => never
+    once: true
+  })
 
 </script>
 </body>
