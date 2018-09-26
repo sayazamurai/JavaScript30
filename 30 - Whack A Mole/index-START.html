@@ -10,7 +10,11 @@
 
   <h1>Whack-a-duck! <span class="score">0</span></h1>
   <div class=button-container>
-    <button onClick="startGame()">Start!</button>
+    <button onClick="startGame()" class="button">Start!</button>
+  </div>
+
+  <div class="finish">
+    FINISH!
   </div>
 
   <div class="game">
@@ -41,6 +45,8 @@
   let lastHole
   let timeUp = false
   let score = 0
+  const finish = document.querySelector('.finish')
+  const button = document.querySelector('.button')
 
   // return milliseconds that a mole appears
   // (between min and max)
@@ -66,7 +72,7 @@
 
   // make a mole move up
   function peep() {
-    const time = randomTime(800, 1300)
+    const time = randomTime(600, 1200)
     const hole = randomHole(holes)
     hole.classList.add('up')
     // setTimeout calls a function or evaluates an expression
@@ -78,14 +84,30 @@
     }, time)
   }
 
+  function changeButtonText(seconds) {
+    if(seconds === 0) {
+      button.innerHTML = 'start'
+    } else{
+      button.innerHTML = seconds
+      setTimeout(() => {
+        changeButtonText(seconds-1)
+      }, 1000)
+    }
+  }
+
   // start a game and by running peep, and
   // when time is up, end a game by making timeUp true
   function startGame() {
     scoreBoard.textContent = 0
     timeUp = false
+    finish.style.display = 'none'
     score = 0
+    changeButtonText(10)
     peep()
-    setTimeout(() => timeUp = true, 10000)
+    setTimeout(() => {
+      timeUp = true
+      finish.style.display = 'block'
+    }, 10000)
   }
 
   // add score
@@ -99,6 +121,8 @@
   }
 
   moles.forEach(mole => mole.addEventListener('click', bonk))
+
+
 
 
 </script>
