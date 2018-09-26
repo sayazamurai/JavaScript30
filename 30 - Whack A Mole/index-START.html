@@ -75,6 +75,7 @@
     const time = randomTime(600, 1200)
     const hole = randomHole(holes)
     hole.classList.add('up')
+    hole.querySelector('.mole').classList.remove('clicked')
     // setTimeout calls a function or evaluates an expression
     // after a specified number of milliseconds
     setTimeout(() => {
@@ -117,6 +118,7 @@
     if(!e.isTrusted) return
     score++
     this.classList.remove('up')
+    this.classList.add('clicked')
     scoreBoard.textContent = score
   }
 
