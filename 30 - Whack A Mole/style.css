@@ -95,8 +95,10 @@ button {
   color: red;
   font-size: 300px;
   position: fixed;
-  top: 220px;
-  left: 30%;
+  top: 250px;
+  width: 100%;
+  left: 0;
+  text-align: center;
   z-index: 100;
   display: none;
 }
